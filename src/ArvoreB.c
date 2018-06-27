@@ -6,8 +6,8 @@ void InicializaNodeArvore(NodeArvore_B* Node,int ordem){
 	Node->numero_chaves = 0;
 	Node->folha = true;
 	Node->chaves = (char**)malloc((ordem-1)*sizeof(char*));
-	for(i = 0; i < ordem - 1; i++){
-		Node->chaves[i] = (char*) malloc(8*sizeof(char*));
+	for(i = 0; i < (ordem - 1); i++){
+		Node->chaves[i] = (char*) malloc(8*sizeof(char));
 	} 
 	Node->filhos = (NodeArvore_B**)malloc(ordem*sizeof(NodeArvore_B*));
 	for(i = 0; i < ordem; i++){
@@ -16,17 +16,17 @@ void InicializaNodeArvore(NodeArvore_B* Node,int ordem){
 }
 
 void CriaArvore_B(Arvore_B* aux_Arvore_B,int ordem){
-	NodeArvore_B aux_Node;
-	InicializaNodeArvore(&aux_Node,ordem);
+	NodeArvore_B* aux_Node = (NodeArvore_B*)malloc(sizeof(NodeArvore_B));
+	InicializaNodeArvore(aux_Node,ordem);
 	
 	/*Escrever em disco aux_Node*/
 
-	aux_Arvore_B->raiz = &aux_Node;
-
+	aux_Arvore_B->raiz = aux_Node;
 }
+
 void DeletaNodeArvore(NodeArvore_B* Node, int ordem){
 	int i;
-	for(i = 0; i < ordem - 1; i++){
+	for(i = 0; i < (ordem - 1); i++){
 		free(Node->chaves[i]);
 	}
 	free(Node->chaves);
@@ -34,6 +34,7 @@ void DeletaNodeArvore(NodeArvore_B* Node, int ordem){
 		free(Node->filhos[i]);
 	}
 	free(Node->filhos);
+	free(Node);
 }
 
 NodeArvore_B* PesquisaArvoreB(NodeArvore_B* arvore, char* k){
@@ -48,4 +49,8 @@ NodeArvore_B* PesquisaArvoreB(NodeArvore_B* arvore, char* k){
 		return NULL;
 	}
 	return PesquisaArvoreB(arvore->filhos[i], k);
+}
+
+void splitChild(int i, NodeArvore_B* y, int ordem){
+	NodeArvore_B* aux = ()
 }
