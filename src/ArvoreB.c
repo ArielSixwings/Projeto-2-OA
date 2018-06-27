@@ -129,7 +129,7 @@ void InserirArvore(Arvore_B* arvore, char* k){
 			InicializaNodeArvore(aux, arvore->ordem, false);
 			aux->filhos[0] = arvore->raiz;
 
-			splitChild(0, aux, arvore->ordem);
+			splitChild(0, arvore->raiz, arvore->ordem);
 
 			int i = 0;
 			if((strcmp(aux->chaves[0], k)) < 0){
