@@ -1,6 +1,16 @@
 #include <string.h>
 #include "ArvoreB.h"
 
+int ParImpar(int ordem){
+	if(ordem%2 == 0){
+		return (ordem / 2) - 1;
+	}else{
+		return (ordem / 2);
+	}
+}
+
+
+
 void InicializaNodeArvore(NodeArvore_B* Node,int ordem, int leaf){
 	int i;
 	Node->numero_chaves = 0;
@@ -55,17 +65,17 @@ void splitChild(int i, NodeArvore_B* y, int ordem){
 	int j;
 	NodeArvore_B* aux = (NodeArvore_B*) malloc(sizeof(NodeArvore_B));
 	InicializaNodeArvore(aux, (ordem / 2), y->folha);
-	aux->numero_chaves = (ordem / 2);
-	for(j = 0; j < (ordem / 2); j++){
+	aux->numero_chaves = ParImpar(ordem) - 1;
+	for(j = 0; j < ParImpar(ordem) - 1; j++){
 		aux->chaves[j] = y->chaves[j + (ordem / 2)];
 	}
 	if(y->folha == false){
-		for(j = 0; j < (ordem / 2); j++){
+		for(j = 0; j < ParImpar(ordem); j++){
 			aux->filhos[j] = y->filhos[j + (ordem / 2)];
 		}
 	}
 
-	y->numero_chaves = (ordem / 2) - 1;
+	y->numero_chaves = ParImpar(ordem) - 1;
 
 	for(j = y->numero_chaves; j > i + 1; j--){
 		y->filhos[j + 1] = y->filhos[j];
@@ -77,12 +87,13 @@ void splitChild(int i, NodeArvore_B* y, int ordem){
 		y->chaves[j + 1] = y->chaves[j];
 	}
 
+	y->chaves[i] = y->chaves[ParImpar(ordem) - 1];
 	y->numero_chaves = y->numero_chaves + 1;
 	free(aux);
 }
 
 void InserirNode(NodeArvore_B* Node, char* k, int ordem){
-	int i = Node->numero_chaves;
+	int i = Node->numero_chaves - 1;
 
 	if(Node->folha == true){
 		while(i >= 0 && (strcmp(Node->chaves[i], k)) > 0){
@@ -96,7 +107,7 @@ void InserirNode(NodeArvore_B* Node, char* k, int ordem){
 		while(i >= 0 && (strcmp(Node->chaves[i], k)) > 0){
 			i--;
 		}
-		if(Node->filhos[i + 1]->numero_chaves == ordem){
+		if(Node->filhos[i + 1]->numero_chaves == ordem-1){
 			splitChild(i + 1, Node->filhos[i + 1], ordem);
 			if((strcmp(Node->chaves[i], k)) < 0){
 				i++;
@@ -109,10 +120,11 @@ void InserirNode(NodeArvore_B* Node, char* k, int ordem){
 void InserirArvore(Arvore_B* arvore, char* k){
 	if(arvore->raiz == NULL){
 		arvore->raiz = (NodeArvore_B*) malloc(sizeof(NodeArvore_B));
+		InicializaNodeArvore(arvore->raiz, arvore->ordem, true);
 		arvore->raiz->chaves[0] = k;
 		arvore->raiz->numero_chaves = 1;
 	}else{
-		if(arvore->raiz->numero_chaves == arvore->ordem){
+		if(arvore->raiz->numero_chaves == arvore->ordem - 1){
 			NodeArvore_B* aux = (NodeArvore_B*) malloc(sizeof(NodeArvore_B));
 			InicializaNodeArvore(aux, (arvore->ordem / 2), false);
 			aux->filhos[0] = arvore->raiz;
