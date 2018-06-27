@@ -24,10 +24,16 @@ void CriaArvore_B(Arvore_B* aux_Arvore_B,int ordem){
 	aux_Arvore_B->raiz = &aux_Node;
 
 }
-void DeletaNodeArvore(NodeArvore_B* Node){
-
+void DeletaNodeArvore(NodeArvore_B* Node, int ordem){
+	int i;
+	for(i = 0; i < ordem - 1; i++){
+		free(Node->chaves[i]);
+	}
 	free(Node->chaves);
-	free(Node->posicao_filhos);
+	for(i = 0; i < ordem; i++){
+		free(Node->filhos[i]);
+	}
+	free(Node->filhos);
 }
 
 NodeArvore_B* PesquisaArvoreB(NodeArvore_B* arvore, char* k){

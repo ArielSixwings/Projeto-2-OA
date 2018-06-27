@@ -24,7 +24,7 @@ void InicializaNodeArvore(NodeArvore_B* Node,int ordem);
 
 void CriaArvore_B(Arvore_B* aux_Arvore_B,int ordem);
 
-void DeletaNodeArvore(NodeArvore_B* Node);
+void DeletaNodeArvore(NodeArvore_B* Node, int ordem);
 
 NodeArvore_B* PesquisaArvoreB(NodeArvore_B* arvore, char* k);
 
