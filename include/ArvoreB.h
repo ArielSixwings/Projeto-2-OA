@@ -18,9 +18,10 @@ typedef struct nodeArvore_B{
 
 typedef struct Arvore_B{
 	NodeArvore_B* raiz;
+	int ordem;
 }Arvore_B;
 
-void InicializaNodeArvore(NodeArvore_B* Node,int ordem);
+void InicializaNodeArvore(NodeArvore_B* Node,int ordem, int leaf);
 
 void CriaArvore_B(Arvore_B* aux_Arvore_B,int ordem);
 
