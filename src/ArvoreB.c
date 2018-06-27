@@ -2,14 +2,17 @@
 #include "ArvoreB.h"
 
 void InicializaNodeArvore(NodeArvore_B* Node,int ordem){
-
+	int i;
 	Node->numero_chaves = 0;
 	Node->folha = true;
-	Node->chaves = (char**)malloc((ordem-1)*sizeof(char**));
-	for(int i = 0; i < ordem - 1; i++){
+	Node->chaves = (char**)malloc((ordem-1)*sizeof(char*));
+	for(i = 0; i < ordem - 1; i++){
 		Node->chaves[i] = (char*) malloc(8*sizeof(char*));
 	} 
-	Node->posicao_filhos = (int*)malloc(ordem*sizeof(int));
+	Node->filhos = (NodeArvore_B**)malloc(ordem*sizeof(NodeArvore_B*));
+	for(i = 0; i < ordem; i++){
+		Node->filhos[i] = (NodeArvore_B*) malloc(ordem*sizeof(NodeArvore_B));
+	}
 }
 
 void CriaArvore_B(Arvore_B* aux_Arvore_B,int ordem){

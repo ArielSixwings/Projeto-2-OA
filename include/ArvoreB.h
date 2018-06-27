@@ -9,9 +9,9 @@
 #define true 1
 #define false 0
 
-typedef struct NodeArvore_B{
+typedef struct nodeArvore_B{
 	char **chaves;
-	NodeArvore_B** filhos;
+	struct nodeArvore_B **filhos;
 	int numero_chaves;
 	bool folha;
 }NodeArvore_B;
