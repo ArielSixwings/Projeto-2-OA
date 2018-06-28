@@ -8,12 +8,26 @@ int main(){
 	BuildPrimaryKey(("lista1"), HowManyLines("lista1.txt"));
 	
 	Arvore_B teste;
+	teste.raiz = NULL;
+	teste.ordem = 6;
+	NodeArvore_B* aux_Node = (NodeArvore_B*)malloc(sizeof(NodeArvore_B));
+
 	CriaArvore_B(&teste,6);
-	DeletaNodeArvore(teste.raiz, 6);
-	NodeArvore_B* teste2 = PesquisaArvoreB(teste.raiz, "jorge");
-	printf("pesquisou certo\n");
-	if(teste2 == NULL){
-		printf("deu certo\n");
+
+	InserirArvore(&teste,"ana");
+	InserirArvore(&teste,"breno");
+	InserirArvore(&teste,"caio");
+	InserirArvore(&teste,"debora");
+	InserirArvore(&teste,"eduardo");
+	InserirArvore(&teste,"fernando");
+
+
+	//aux_Node = PesquisaArvoreB(teste.raiz, "fernando");
+	if (aux_Node == teste.raiz)
+	{
+		printf("É o no certo\n");
 	}
+	//CriaArvore_B(&teste,6);
+
 	return 0;
 }

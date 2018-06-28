@@ -8,9 +8,7 @@ int MenorParImpar(int ordem){
 		return (ordem / 2);
 	}
 }
-
-
-
+	
 void InicializaNodeArvore(NodeArvore_B* Node,int ordem, int leaf){
 	int i;
 	Node->numero_chaves = 0;
@@ -68,17 +66,17 @@ void splitChild(int i, NodeArvore_B* x, int ordem){
 	InicializaNodeArvore(z, ordem, y->folha);
 	z->numero_chaves = MenorParImpar(ordem);
 	for(j = 0; j < MenorParImpar(ordem); j++){
-		z->chaves[j] = y->chaves[j + MenorParImpar(ordem)];
+		z->chaves[j] = y->chaves[j + MenorParImpar(ordem)+1];
 	}
 	if(y->folha == false){
-		for(j = 0; j < MenorParImpar(ordem) + 1; j++){
-			z->filhos[j] = y->filhos[j + MenorParImpar(ordem)];
+		for(j = 0; j < (MenorParImpar(ordem) + 1); j++){
+			z->filhos[j] = y->filhos[j + MenorParImpar(ordem)+1];
 		}
 	}
 
 	y->numero_chaves = MenorParImpar(ordem);
 
-	for(j = x->numero_chaves + 1; j > i + 1; j--){
+	for(j = (x->numero_chaves + 1); j > (i + 1); j--){
 		x->filhos[j + 1] = x->filhos[j];
 	}
 
@@ -120,10 +118,11 @@ void InserirNode(NodeArvore_B* Node, char* k, int ordem){
 
 void InserirArvore(Arvore_B* arvore, char* k){
 	NodeArvore_B* auxraiz = arvore->raiz;
-	if(auxraiz->numero_chaves == arvore->ordem - 1){
+	if(auxraiz->numero_chaves == ((arvore->ordem) - 1)){
 		NodeArvore_B* aux = (NodeArvore_B*) malloc(sizeof(NodeArvore_B));
-		InicializaNodeArvore(aux, arvore->ordem, false);
 		arvore->raiz = aux;
+		aux->folha = false;
+		aux->numero_chaves = 0;
 		aux->filhos[0] = auxraiz;
 		splitChild(0, aux, arvore->ordem);
 
