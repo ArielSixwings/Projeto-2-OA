@@ -71,7 +71,7 @@ void splitChild(int i, NodeArvore_B* x, int ordem){
 		z->chaves[j] = y->chaves[j + MenorParImpar(ordem)];
 	}
 	if(y->folha == false){
-		for(j = 0; j < MenorParImpar(ordem); j++){
+		for(j = 0; j < MenorParImpar(ordem) + 1; j++){
 			z->filhos[j] = y->filhos[j + MenorParImpar(ordem)];
 		}
 	}
@@ -128,8 +128,7 @@ void InserirArvore(Arvore_B* arvore, char* k){
 		splitChild(0, aux, arvore->ordem);
 
 		InserirNode(aux, k, arvore->ordem);
-		arvore->raiz = aux;
 	}else{
-		InserirNode(arvore->raiz, k, arvore->ordem);
+		InserirNode(auxraiz, k, arvore->ordem);
 	}
 }
