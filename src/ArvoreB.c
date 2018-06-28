@@ -47,7 +47,7 @@ void DeletaNodeArvore(NodeArvore_B* Node, int ordem){
 
 NodeArvore_B* PesquisaArvoreB(NodeArvore_B* arvore, char* k){
 	int i = 0;
-	while(i < arvore->numero_chaves && (strcmp(k, arvore->chaves[i])) < 0){
+	while(i < arvore->numero_chaves && (strcmp(k, arvore->chaves[i])) > 0){
 		i++;
 	}
 	if(arvore->chaves[i] == k){
@@ -94,7 +94,7 @@ void InserirNode(NodeArvore_B* Node, char* k, int ordem){
 	int i = Node->numero_chaves;
 
 	if(Node->folha == true){
-		while(i >= 0 && (strcmp(Node->chaves[i], k)) < 0){
+		while(i >= 0 && (strcmp(Node->chaves[i], k)) > 0){
 			Node->chaves[i + 1] = Node->chaves[i];
 			i--;
 		}
@@ -102,13 +102,13 @@ void InserirNode(NodeArvore_B* Node, char* k, int ordem){
 		Node->chaves[i + 1] = k;
 		Node->numero_chaves = Node->numero_chaves + 1;
 	}else{
-		while(i >= 0 && (strcmp(Node->chaves[i], k)) < 0){
+		while(i >= 0 && (strcmp(Node->chaves[i], k)) > 0){
 			i--;
 		}
 		i++;
 		if(Node->filhos[i]->numero_chaves == (ordem-1)){
 			splitChild(i, Node->filhos[i], ordem);
-			if((strcmp(Node->chaves[i], k)) > 0){
+			if((strcmp(Node->chaves[i], k)) < 0){
 				i++;
 			}
 		}
@@ -120,13 +120,12 @@ void InserirArvore(Arvore_B* arvore, char* k){
 	NodeArvore_B* auxraiz = arvore->raiz;
 	if(auxraiz->numero_chaves == ((arvore->ordem) - 1)){
 		NodeArvore_B* aux = (NodeArvore_B*) malloc(sizeof(NodeArvore_B));
-		arvore->raiz = aux;
-		aux->folha = false;
-		aux->numero_chaves = 0;
+		InicializaNodeArvore(aux, arvore->ordem, false);
 		aux->filhos[0] = auxraiz;
 		splitChild(0, aux, arvore->ordem);
 
 		InserirNode(aux, k, arvore->ordem);
+		free(aux);
 	}else{
 		InserirNode(auxraiz, k, arvore->ordem);
 	}

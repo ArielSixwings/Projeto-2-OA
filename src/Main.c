@@ -28,6 +28,6 @@ int main(){
 		printf("É o no certo\n");
 	}
 	//CriaArvore_B(&teste,6);
-
+	free(aux_Node);
 	return 0;
 }
