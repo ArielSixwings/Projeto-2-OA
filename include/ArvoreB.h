@@ -29,7 +29,7 @@ void DeletaNodeArvore(NodeArvore_B* Node, int ordem);
 
 NodeArvore_B* PesquisaArvoreB(NodeArvore_B* arvore, char* k);
 
-void splitChild(int i, NodeArvore_B* y, int ordem);
+void splitChild(int i, NodeArvore_B* x, int ordem);
 
 void InserirNode(NodeArvore_B* Node, char* k, int ordem);
 
